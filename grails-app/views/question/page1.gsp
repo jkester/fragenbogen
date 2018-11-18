@@ -10,6 +10,7 @@
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/question')}"><g:message code="default.home.label"/></a></li>
+                <li><a href="${createLink(uri: '/logout')}"><g:message code="default.logout.label"/></a></li>
             </ul>
         </div>
 
