@@ -21,9 +21,9 @@ class BootStrap {
                 description: "Wie oft besuchen Sie einen anderen KG?",
                 possibleAnswers: "nie|selten|manchmal|oft").save()
         def question3 = new Question(questionNumber : 102, questionLabel: "anzahl_tage_besuch",
-                description: "Wieviel Tage im Jahr sind Sie auf einem anderen Ort?",possibleAnswers: "").save()
+                description: "Wieviel Tage im Jahr sind Sie auf einem anderen Ort?").save()
         def question4 = new Question(questionNumber : 200, questionLabel: "essen_wie_oft",
-                description: "Wie oft essen Sie am Tag?",possibleAnswers: "").save()
+                description: "Wie oft essen Sie am Tag?").save()
         def question5 = new Question(questionNumber : 201, questionLabel: "essen_hunger",
                 description: "Haben Sie dann Hunger?",
                 possibleAnswers: "nie|selten|manchmal|oft").save()

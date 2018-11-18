@@ -17,7 +17,7 @@
             <div id="list-question1" class="content scaffold-list" role="main">
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
 
-				<g:form action="page2">
+				<g:form action="page3">
 					<table>
 						<thead>
 							<tr>
@@ -44,7 +44,7 @@
                                 </tr>
                             </g:each>
                             <tr>
-                                <td><g:submitButton name="page2" value="page2" />
+                                <td><g:submitButton name="page3" value="page3" />
                             </tr>
                         </tbody>
 					</table>

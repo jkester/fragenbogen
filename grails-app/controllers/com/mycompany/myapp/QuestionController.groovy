@@ -20,10 +20,8 @@ class QuestionController {
         respond questionService.get(id)
     }
 
-    def page1() {
-        log.info("START calling page1")
+    def prepareFormVals(User cUser, int startIndex, int endIndex) {
         def formVals = [:]
-        //create page
 
         //load all questions into session memory
         List<Question> allQuestions = session["allquestions"]
@@ -35,31 +33,54 @@ class QuestionController {
         else {
             log.info("number of questions: ${allQuestions.size()}")
         }
+
         //get current user
-        def user = springSecurityService.currentUser
-        log.info("user: ${user}")
-        formVals.user = user
+        log.info("user: ${cUser}")
+        formVals.user = cUser
 
         //get all answers of this user
-        def existingAnswers = questionAnswerService.findAllAnswersForUser(user)
-        List<Answer> newAndExistingAnswers = questionAnswerService.populateAnswers(allQuestions,existingAnswers,user,100,199)
+        def existingAnswers = questionAnswerService.findAllAnswersForUser(cUser)
+        List<Answer> newAndExistingAnswers = questionAnswerService.populateAnswers(allQuestions,existingAnswers,cUser,startIndex,endIndex)
         newAndExistingAnswers.each {log.info(it.question.description)}
         formVals.quAns = newAndExistingAnswers
+        return formVals
+    }
 
+    def processParams(def params, User cUser) {
+        def qparams = params.findAll {k,v -> k.toString().startsWith("q")}
+        qparams.each {k,v ->
+            log.info("${k} ${v}")
+            int questionNumber = k.toString().substring(1).toInteger()
+            questionAnswerService.storeAnswerIfDifferent(questionNumber,cUser,v.toString())
+        }
+    }
+
+    def page1() {
+        log.info("START calling page1")
+        def user = springSecurityService.currentUser
         //populate form with all answers for page1 (100 numbers)
-        return [fv : formVals];
+        def fVals = prepareFormVals(user,100,199)
+        return [fv : fVals];
     }
 
     def page2() {
-        def formVals = [:]
-        //get params
-        //get from session memory all current answers
-        //compare with answers from page1
-        //update in session and store in db
+        //store values into db
+        def user = springSecurityService.currentUser
+        processParams(params,user)
 
         //prepare page 2
+        def fVals = prepareFormVals(user,200,299)
+        return [fv : fVals];
+    }
 
-        return [fv : formVals];
+    def page3() {
+        //store values into db
+        def user = springSecurityService.currentUser
+        processParams(params,user)
+
+        //prepare page 2
+        def fVals = prepareFormVals(user,300,399)
+        return [fv : fVals];
     }
 
     def finishLastPage() {
