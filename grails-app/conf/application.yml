@@ -91,24 +91,24 @@ hibernate:
 dataSource:
     pooled: true
     jmxExport: true
-    driverClassName: com.mysql.cj.jdbc.Driver
-    dialect: org.hibernate.dialect.MySQL8Dialect
-    username: sa
-    password: testing
+    driverClassName: com.mysql.jdbc.Driver
+    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    username: gr
+    password: gr
 
 environments:
     development:
         dataSource:
             dbCreate: create-drop
-            url: jdbc:mysql://127.0.0.1:3306/myapp?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Amsterdam&amp&useSSL=false
+            url: jdbc:mysql://127.0.0.1:3306/bookstore?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Amsterdam&amp&useSSL=false
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:mysql://127.0.0.1:3306/myapp
+            url: jdbc:mysql://127.0.0.1:3306/bookstore
     production:
         dataSource:
             dbCreate: none
-            url: jdbc:mysql://127.0.0.1:3306/myapp
+            url: jdbc:mysql://127.0.0.1:3306/bookstore
             properties:
                 jmxEnabled: true
                 initialSize: 5
